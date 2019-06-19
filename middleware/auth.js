@@ -83,7 +83,7 @@ module.exports = ()=>{
             Content:'',
             MsgType:message.MsgType,
         }
-        if(message.MsgType === 'event'){
+        if(message.MsgType === 'event'){// 事件
             options.Event = message.Event;
             if(message.Event === 'subscribe'){
                 options.Content = "欢迎您的关注~";
@@ -93,7 +93,7 @@ module.exports = ()=>{
             
         }
        
-        // 事件
+        
        
         const sendMsg = getTemplate(options);
         console.log(sendMsg);

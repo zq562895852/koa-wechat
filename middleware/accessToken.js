@@ -35,6 +35,10 @@ const { appID,appsecret } = require('../confing');
 //        }).catch(err=>{
 //            console.log(err);
 //        })
+
+// 引入菜单
+const  menu  = require('../tmpl/menu');
+
  class WeChat{
      constructor(){}
      /**
@@ -101,7 +105,9 @@ const { appID,appsecret } = require('../confing');
         // 检测是否过期
         return Date.now() < data.expires_in;
     }
-
+    /**
+     * 获取有效的access_token
+     */
     fetchAccessToken(){
         // 缓存数据
         if(this.access_token&&this.expires_in&&this.isValidAccessToken(this)){
@@ -113,37 +119,81 @@ const { appID,appsecret } = require('../confing');
             })
         }
         // 读取本地保存文件
-        this.readAccessToken('accessToken.txt').then(async res=>{
-            console.log(res)
+       return this.readAccessToken('accessToken.txt').then(async res=>{
             // 本地保存过文件，然后读取文件
             
             // 判断是否过期
             if(this.isValidAccessToken(res)){
                 // 有效 可以直接使用
+                // console.log("object",res)
                 return Promise.resolve(res);
             }else{
                 // 无效  重新获取
                 const result = await this.getAccessToken();
                 this.saveAccessToken(res)
+
+                //console.log("object",result)
                 return Promise.resolve(result);
             }
-        }).catch(async err=>{
+        }).then(async res=>{
             // 本地没有保存过文件，然后获取accessToken,获取后保存到本地
-            console.log(err)
+            
             // this.getAccessToken().then(async res=>{
             //     // res可以直接使用
             //     this.saveAccessToken(res)
             // })
             const result = await this.getAccessToken();
+            
             // result
             this.saveAccessToken(result);
             return Promise.resolve(result);
+            
         }).then(res=>{
             this.access_token = res.access_token;
             this.expires_in = res.expires_in;
             return Promise.resolve(res);
         })
     }
+    
+    /**
+     * 
+     * @param {创建菜单} menu 
+     */
+    createdMenu(menu){
+        return  new Promise(async (resolve, reject) => {
+            try {
+                const { access_token } = await this.fetchAccessToken();
+                const url = ` https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+                const result = await rp({method:'POST', url, json:true, body: menu})
+                resolve(result)
+            } catch (e) {
+                reject('createdMenu' + e)
+            }
+        });
+    }
+    /**
+     * 删除菜单
+     */
+    deleteMenu(){
+        return new Promise(async (resolve, reject) => {
+            try{
+                const { access_token } = await this.fetchAccessToken();
+
+                const url = ` https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=${access_token}`
+
+                console.log(url)
+
+                const result = await rp({method:'GET', url, json:true})
+
+                resolve(result)
+
+            } catch(e){
+                console.log('deleteMenu')
+                reject(e)
+            }
+        });
+    }
+
 
 
  }
@@ -151,7 +201,14 @@ const { appID,appsecret } = require('../confing');
 
 
 
-//  测试
+//  可以单独运行这个模块创建菜单获取access_token;
 
-const w = new WeChat();
-w.fetchAccessToken()
+( async ()=>{
+    const w = new WeChat();
+
+    let r =  await w.deleteMenu();
+    console.log(r)
+    let result =  await w.createdMenu(menu);
+    console.log(result)
+
+})();
