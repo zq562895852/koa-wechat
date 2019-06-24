@@ -9,18 +9,19 @@ const views = require('koa-views');
 
 
 // 引入路由模块
-// const router = require('./router')
+const router = require('./router')
 // 引入微信认证中间件
 const auth = require('./middleware/auth');
 
 //配置模板引擎   ，模板文件的后缀名为html
 app.use(views('views', { map: {html: 'ejs' }}));
 
+app.use(router.routes()).use(router.allowedMethods());
 // 注册微信认证中间件  这个要在路由配置前注册
 app.use(auth())
 
 
-// app.use(router.routes()).use(router.allowedMethods());
+
 
 
 

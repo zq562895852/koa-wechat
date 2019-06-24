@@ -1,32 +1,38 @@
 
+// 引入配置模块
+const { url } = require('../confing');
 
 module.exports = {
     "button":[
             {	
-                "type":"click",
+                "type":"view",
                 "name":"今日歌曲",
-                "key":"V1001_TODAY_MUSIC"
+                "key":url+"/todayMusic"
             },
             {
-                "name":"菜单",
+                "name":"今日推荐",
                 "sub_button":[
                 {	
                     "type":"view",
-                    "name":"搜索",
-                    "url":"http://www.soso.com/"
+                    "name":"榜单",
+                    "url":url+"/songList"
                 },
                 {
-                        "type":"miniprogram",
-                        "name":"wxa",
-                        "url":"http://mp.weixin.qq.com",
-                        "appid":"wx286b93c14bbf93aa",
-                        "pagepath":"pages/lunar/index"
-                    },
+                    "type":"view",
+                    "name":"流行",
+                    "url":url+"/popularSong",
+                },
                 {
-                    "type":"click",
-                    "name":"赞一下我们",
-                    "key":"V1001_GOOD"
+                    "type":"view",
+                    "name":"热门",
+                    "url":url+"/hotSong",
                 }]
+            },
+            {
+                "type":"view",
+                "name":"关于我们",
+                "url":url+'/about',
+                "key":"about"
             }
         ]
 }

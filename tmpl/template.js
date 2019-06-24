@@ -9,8 +9,13 @@ module.exports = {
             <MsgType><![CDATA[${options.MsgType}]]></MsgType>
         `
        if(options.MsgType === 'text'){
+            if(options.EventKey === "todayMusic"){
 
-         tmpl += `<Content><![CDATA[${options.Content}]]></Content>`
+                tmpl += `<Content><![CDATA[${options.Content}]]></Content>`
+                
+            }else{
+                tmpl += `<Content><![CDATA[${options.Content}]]></Content>`
+            }
 
        }else if(options.MsgType === 'voice'){
 

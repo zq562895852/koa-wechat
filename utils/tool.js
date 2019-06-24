@@ -60,10 +60,14 @@ module.exports={
             Event: [ 'unsubscribe' ],//事件类型
             EventKey: [ '' ] }
           */
+
+
+          console.log(xml);
         if(!xml) return;
         if(xml.Content) message.Content = xml.Content[0];
         if(xml.MsgId) message.MsgId = xml.MsgId[0];
         if(xml.Event) message.Event = xml.Event[0];
+        if(xml.EventKey) message.EventKey = xml.EventKey[0];
         message.ToUserName = xml.ToUserName[0];
         message.FromUserName = xml.FromUserName[0];
         

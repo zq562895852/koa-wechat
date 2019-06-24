@@ -202,13 +202,14 @@ const  menu  = require('../tmpl/menu');
 
 
 //  可以单独运行这个模块创建菜单获取access_token;
+// const w = new WeChat();
 
-( async ()=>{
-    const w = new WeChat();
+// ( async ()=>{
+//     const w = new WeChat();
+//     let r =  await w.deleteMenu();
+//     console.log(r)
+//     let result =  await w.createdMenu(menu);
+//     console.log(result)
+// })();
 
-    let r =  await w.deleteMenu();
-    console.log(r)
-    let result =  await w.createdMenu(menu);
-    console.log(result)
-
-})();
+module.exports = WeChat;
