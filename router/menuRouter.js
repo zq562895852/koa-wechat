@@ -33,6 +33,13 @@ module.exports = {
            }
            
            
+       }else if(message.Content === '热门'){//回复音乐信息
+         
+          reply.replyTextMusic(ctx,options)
+
+
+
+
        }else if(message.Content == '1'){
            //    测试用
            let r = "<xml><ToUserName><![CDATA[o9c581GwljNihXl-4NpuKGFuQAMs]]></ToUserName><FromUserName><![CDATA[gh_a1e246930dfa]]></FromUserName><CreateTime>1561000454755</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好~]]></Content></xml>"

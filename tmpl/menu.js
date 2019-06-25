@@ -7,7 +7,7 @@ module.exports = {
             {	
                 "type":"view",
                 "name":"今日歌曲",
-                "key":url+"/todayMusic"
+                "url":url+"/todayMusic"
             },
             {
                 "name":"今日推荐",
@@ -32,7 +32,7 @@ module.exports = {
                 "type":"view",
                 "name":"关于我们",
                 "url":url+'/about',
-                "key":"about"
+                // "key":"about"//如果菜单是view  key不能有
             }
         ]
 }

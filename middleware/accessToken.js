@@ -121,29 +121,33 @@ const  menu  = require('../tmpl/menu');
         // 读取本地保存文件
        return this.readAccessToken('accessToken.txt').then(async res=>{
             // 本地保存过文件，然后读取文件
-            
+            console.log('本地保存过');
             // 判断是否过期
             if(this.isValidAccessToken(res)){
                 // 有效 可以直接使用
                 // console.log("object",res)
+                console.log('有效');
                 return Promise.resolve(res);
             }else{
                 // 无效  重新获取
+                console.log('无效');
                 const result = await this.getAccessToken();
-                this.saveAccessToken(res)
+                console.log('result',result);
+                this.saveAccessToken(result)
 
                 //console.log("object",result)
                 return Promise.resolve(result);
             }
-        }).then(async res=>{
+        }).catch(async res=>{
             // 本地没有保存过文件，然后获取accessToken,获取后保存到本地
             
             // this.getAccessToken().then(async res=>{
             //     // res可以直接使用
             //     this.saveAccessToken(res)
             // })
+            console.log('本地没有保存过',res);
             const result = await this.getAccessToken();
-            
+            console.log('本地没有保存过1',result);
             // result
             this.saveAccessToken(result);
             return Promise.resolve(result);
@@ -151,6 +155,7 @@ const  menu  = require('../tmpl/menu');
         }).then(res=>{
             this.access_token = res.access_token;
             this.expires_in = res.expires_in;
+            console.log('res',res);
             return Promise.resolve(res);
         })
     }
@@ -208,6 +213,7 @@ const  menu  = require('../tmpl/menu');
 //     const w = new WeChat();
 //     let r =  await w.deleteMenu();
 //     console.log(r)
+//     console.log(menu);
 //     let result =  await w.createdMenu(menu);
 //     console.log(result)
 // })();

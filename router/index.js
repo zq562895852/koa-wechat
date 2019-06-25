@@ -4,6 +4,7 @@ let router = new Router();
 
 
 router.get('/songList',async ctx=>{
+    console.log(ctx)
     await ctx.render('songList',{
         title:'songList'
     })
@@ -15,11 +16,11 @@ router.get('/popularSong',async ctx=>{
     })
 })
 
-router.get('/songList',async ctx=>{
-    await ctx.render('popularSong',{
-        title:'popularSong'
-    })
-})
+// router.get('/popularSong',async ctx=>{
+//     await ctx.render('popularSong',{
+//         title:'popularSong'
+//     })
+// })
 
 router.get('/hotSong',async ctx=>{
     await ctx.render('hotSong',{
